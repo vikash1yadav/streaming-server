@@ -1,20 +1,24 @@
 const express = require('express');
 const FolderList = require('../controller/folder-list');
+const path = require('path');
+const fs = require('fs');
+
 console.log("testi", 1)
 const router = express.Router();
 
 router.get("/watch", (req, res) => {
-  const videoId = req.query.videoId
+  const videoId = req.query.video
   const quality = req.query.quality
   console.log("test route", videoId)
-  const videoPath = path.join(__dirname, `videos/${videoId}.mp4`)
-  // videoPath.pipe(res)
+  const videoPath = path.join(`storage/${videoId}.mp4`)//__dirname
+  const stat = fs.statSync(videoPath);
+  const fileSize = stat.size;
   const head = {
     'Content-Length': fileSize,
     'Content-Type': 'video/mp4',
   };
   res.writeHead(200, head);
-  fs.createReadStream(filePath).pipe(res);
+  fs.createReadStream(videoPath).pipe(res);
   // res.sendFile(videoPath)
 })
 

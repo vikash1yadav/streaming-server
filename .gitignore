@@ -69,6 +69,7 @@ bower_components
 build/Release
 public/pdf-html/
 videos/
+storage/
 
 # Dependency directories
 node_modules/
